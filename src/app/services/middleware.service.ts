@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 
 
 @Injectable()
-export class Middleware {
+export class MiddlewareService {
 	
 	constructor(private http: Http, private injector: Injector) {
 	}
