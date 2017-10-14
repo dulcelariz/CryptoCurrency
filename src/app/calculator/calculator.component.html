@@ -1,29 +1,29 @@
 <div>
  <mat-form-field>
-    <input matInput name="target" type="number" value="{{target}}">
+    <input matInput name="target" type="number" value="{{target | number:'1.2-2'}}" [(ngModel)]="calculatorForm.target" (keyup)="calcExchange('TargetToBase')">
  </mat-form-field>
 
 <mat-form-field>
-  <mat-select>
-    <mat-option *ngFor="let currencyT of currenciesTarget" [value]="currencyT.code">
-      {{ currencyT.code }}
+  <mat-select [(ngModel)]="calculatorForm.selectedTarget" (change)="calcExchange('TargetToBase')">
+    <mat-option *ngFor="let currencyT of currenciesTarget" [value]="currencyT">
+      {{ currencyT }}
     </mat-option>
   </mat-select>
 </mat-form-field>
 </div>
-
-
 
 <div>
 <mat-form-field>
-    <input matInput name="base" type="number" value="{{base}}">
+    <input matInput name="base" type="number" value="{{base | number:'1.2-2'}}" [(ngModel)]="calculatorForm.base" (keyup)="calcExchange('BaseToTarget')">
  </mat-form-field>
 
 <mat-form-field>
-  <mat-select>
-    <mat-option *ngFor="let currenciesB of currenciesBase" [value]="currenciesB.code">
-      {{ currenciesB.code }}
+  <mat-select [(ngModel)]="calculatorForm.selectedBase" (change)="calcExchange('BaseToTarget')">
+    <mat-option *ngFor="let currenciesB of currenciesBase" [value]="currenciesB">
+      {{ currenciesB }}
     </mat-option>
   </mat-select>
 </mat-form-field>
 </div>
+
+{{currenciesVal| json}}

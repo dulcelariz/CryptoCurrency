@@ -1,51 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from '../shared/services/data.service';
-
+import { Component, Input } from '@angular/core';
+import { Currencies } from '../shared/helper/currencies.model';
+import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
-  styleUrls: ['./calculator.component.css']
+  styleUrls: ['./calculator.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CalculatorComponent implements OnInit {
+export class CalculatorComponent {
+  @Input() currencies: Currencies;
+  calculatorForm: any;
+  currenciesTarget: any;
+  currenciesBase: any;
 
-  base = 0;
-  target = 0;
-	currenciesBase = [
-    { code: 'btc'},
-    { code: 'eth'},
-  ];
-
-  currenciesTarget = [
-    { code: 'usd'},
-    { code: 'eur'},
-  ];
-
-  constructor(private dataService: DataService) {
-
+  constructor(private ref: ChangeDetectorRef) {
+    this.currenciesTarget = ['USD', 'EUR'];
+    this.currenciesBase = ['BTC', 'ETH'];
+    this.calculatorForm = { target: 0, base: 0, selectedTarget: 'USD', selectedBase: 'BTC' };
   }
 
-  ngOnInit() {
-    this.dataService.updateCurrencies().then(
-      response => {
-        this.dataService.getCurrencies();
-      },error => {
-        console.log(error)
+  calcExchange(order: string) {
+
+    if (this.currencies) {
+      if (order === 'BaseToTarget') {
+        let baseSelected = this.calculatorForm.selectedBase;
+        let targetSelected = this.calculatorForm.selectedTarget;
+        let target = this.currencies[baseSelected];
+        this.calculatorForm.target = this.calculatorForm.base * target[targetSelected];
+      }  
+
+      if ( order === 'TargetToBase') {
+        let targetSelected = this.calculatorForm.selectedTarget;
+        let baseSelected = this.calculatorForm.selectedBase;
+        let base = this.currencies[baseSelected];
+        let baseConverted = 1 / base[targetSelected];
+        this.calculatorForm.base =  this.calculatorForm.target * baseConverted;
       }
-      );
-    
-  	// this.dataService.getExchange().then(
-  	// 	response => {
-  	// 		console.log(response)
-  	// 	}, error => {
-  	// 		console.log(error)
-  	// 	});
+    }
   }
 
-  calcExchange(valueToExchange: number, exchangeType: string) {
-
-
-
-  }
 
 }

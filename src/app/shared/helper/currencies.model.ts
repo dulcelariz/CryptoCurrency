@@ -1,5 +1,5 @@
 export class Currencies {
-	code: {
+	base: {
 		USD: number
 		EUR: number
 		BTC: number

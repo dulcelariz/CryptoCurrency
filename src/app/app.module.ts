@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -19,6 +20,7 @@ import { Currencies } from './shared/helper/currencies.model';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     NgbModule.forRoot(),
     BrowserAnimationsModule,
     HttpModule,
