@@ -1,27 +1,29 @@
 <div>
- <mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" value="Sushi">
+ <mat-form-field>
+    <input matInput name="target" type="number" value="{{target}}">
  </mat-form-field>
 
 <mat-form-field>
-  <mat-select placeholder="Favorite food">
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{ food.viewValue }}
+  <mat-select>
+    <mat-option *ngFor="let currencyT of currenciesTarget" [value]="currencyT.code">
+      {{ currencyT.code }}
     </mat-option>
   </mat-select>
 </mat-form-field>
 </div>
+
+
+
 <div>
-<mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" value="Sushi">
+<mat-form-field>
+    <input matInput name="base" type="number" value="{{base}}">
  </mat-form-field>
 
 <mat-form-field>
-  <mat-select placeholder="Favorite food">
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{ food.viewValue }}
+  <mat-select>
+    <mat-option *ngFor="let currenciesB of currenciesBase" [value]="currenciesB.code">
+      {{ currenciesB.code }}
     </mat-option>
   </mat-select>
 </mat-form-field>
-
 </div>

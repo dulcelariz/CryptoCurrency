@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../services/data.service';
+import { DataService } from '../shared/services/data.service';
+
 
 @Component({
   selector: 'app-calculator',
@@ -8,21 +9,43 @@ import { DataService } from '../services/data.service';
 })
 export class CalculatorComponent implements OnInit {
 
-	foods = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
+  base = 0;
+  target = 0;
+	currenciesBase = [
+    { code: 'btc'},
+    { code: 'eth'},
   ];
 
-  constructor(private dataService: DataService) { }
+  currenciesTarget = [
+    { code: 'usd'},
+    { code: 'eur'},
+  ];
+
+  constructor(private dataService: DataService) {
+
+  }
 
   ngOnInit() {
-  	// this.dataService.getExchange('btc','usd').then(
+    this.dataService.updateCurrencies().then(
+      response => {
+        this.dataService.getCurrencies();
+      },error => {
+        console.log(error)
+      }
+      );
+    
+  	// this.dataService.getExchange().then(
   	// 	response => {
   	// 		console.log(response)
   	// 	}, error => {
   	// 		console.log(error)
   	// 	});
+  }
+
+  calcExchange(valueToExchange: number, exchangeType: string) {
+
+
+
   }
 
 }

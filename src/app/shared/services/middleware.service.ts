@@ -5,7 +5,6 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-
 @Injectable()
 export class MiddlewareService {
 	
@@ -18,9 +17,9 @@ export class MiddlewareService {
 
 	private _builtedRequest(requestType: string, url: string, data: string, options?: Object): Promise<any> {
 		let requestURL = url;
-		requestURL = requestURL + '/' + data;
 		let requestOptions = Object.assign({}, options);
 		requestOptions['method'] = requestType || 'GET';
+		requestOptions['search'] = data;
 		return this.http.request(requestURL, requestOptions)
 			.toPromise()
 			.then(this._parseReponse.bind(this))
