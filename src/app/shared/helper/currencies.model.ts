@@ -4,4 +4,5 @@ export class Currencies {
 		EUR: number
 		BTC: number
 	};
+	timestamp: Date;
 }

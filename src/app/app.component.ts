@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
 import { Observable} from 'rxjs/Rx';
-
+import {MatTableModule} from '@angular/material';
 import { DataService } from './shared/services/data.service';
 import { Currencies } from './shared/helper/currencies.model';
 import { CalculatorComponent } from './calculator/calculator.component';
+import { TablesComponent } from './tables/tables.component';
 
 @Component({
   selector: 'app-root',
