@@ -1,3 +1,12 @@
 .dashboard-title {
 	text-align:center
 }
+
+.graph-div {
+	width: 60%;	
+}
+
+.calculator-div {
+	width: 30%;
+	display: inline-block;
+}

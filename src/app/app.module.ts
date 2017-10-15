@@ -16,6 +16,8 @@ import { Currencies } from './shared/helper/currencies.model';
 import { TablesComponent } from './tables/tables.component';
 import { TableBTCComponent } from './tables/table-btc/table-btc.component';
 import { TableETHComponent } from './tables/table-eth/table-eth.component';
+import { GraphComponent } from './graph/graph.component';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { TableETHComponent } from './tables/table-eth/table-eth.component';
     CalculatorComponent,
     TablesComponent,
     TableBTCComponent,
-    TableETHComponent
+    TableETHComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { TableETHComponent } from './tables/table-eth/table-eth.component';
     HttpModule,
     MatSelectModule,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
+    NgxChartsModule
   ],
   providers: [MiddlewareService, DataService],
   bootstrap: [AppComponent]

@@ -1,7 +1,7 @@
 import { Injectable} from '@angular/core';
 import { MiddlewareService } from '../services/middleware.service';
 import { Currencies } from '../helper/currencies.model';
-
+import { GraphData } from '../helper/graphData.model';
 
 @Injectable()
 export class DataService {
@@ -11,10 +11,20 @@ export class DataService {
 	currenciesETH: Currencies = null;
 	currenciesArrBTC: Currencies[];
 	currenciesArrETH: Currencies[];
+	lastValues: Currencies[];
+	dataBTC = new GraphData();
+	dataETH = new GraphData();
+	allData: GraphData[] = [];
 
 	constructor(private middlewareService: MiddlewareService) {
 		this.currenciesArrBTC = [];
 		this.currenciesArrETH = [];
+		this.lastValues = [];
+		this.dataBTC.name = 'BTC';
+		this.dataETH.name = 'ETH';
+		this.dataBTC.series = [{name:'T',value:0}];
+		this.dataETH.series = [{name:'T',value:0}];
+
 	}
 
 	updateCurrencies(): Promise<any> {
@@ -33,6 +43,7 @@ export class DataService {
     	this.currencies = data ? data : {};
     	this.currencies.timestamp = time;
     	
+    	this.updateLastValues(data);
     	BTC.base = data.BTC ? data.BTC : {};
     	BTC.timestamp = time;
 
@@ -60,6 +71,40 @@ export class DataService {
 
     getArrayETH(): Currencies[] {
     	return this.currenciesArrETH;
+    }
+
+    updateLastValues(data) {
+
+    	if (data) {
+	    	if ( this.lastValues.length < 10) {
+	    		this.lastValues.push(data);
+	    		return;
+	    	}
+	    	if ( this.lastValues.length === 10) {
+	    		this.lastValues.shift();
+	    		this.lastValues.push(data);
+	    		return;
+	    	}
+	    }
+    }
+
+    getLastValues(){
+
+    	
+    	this.lastValues.forEach((currentValue, index, array) =>  {
+			let time: string = 'T'+index;
+			console.log(this.dataBTC.series)
+			this.dataBTC.series.push( { name: time, value: currentValue['BTC'].USD });
+			this.dataETH.series.push( { name: time, value: currentValue['ETH'].USD });
+
+			console.log(this.dataBTC);
+
+		});
+    	
+    	this.allData.push(this.dataBTC);
+    	this.allData.push(this.dataETH);
+    	console.log(this.allData)
+    	return this.allData;
     }
 
 }
