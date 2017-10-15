@@ -16,12 +16,16 @@ export class AppComponent {
 	@ViewChild(CalculatorComponent) childCalculator: CalculatorComponent;
 	title = 'CryptoCurrency Dashboard';
 	currencies: Currencies = null;
+	btc_usd = 0;
+	eth_usd = 0;
 
 	constructor(private dataService: DataService) {
 		this.dataService.updateCurrencies();
 		Observable.interval(10000).subscribe(x => {
 	    	this.dataService.updateCurrencies();
 	    	this.currencies = this.dataService.getCurrencies();
+	    		this.btc_usd = this.currencies['BTC'];
+				this.eth_usd = this.currencies['ETH'];
 	  });
 
 	}

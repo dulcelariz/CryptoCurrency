@@ -3,10 +3,16 @@
 }
 
 .graph-div {
-	width: 60%;	
+	width: 60%;
+	display: inline-block;
 }
 
 .calculator-div {
-	width: 30%;
 	display: inline-block;
+    position: absolute;
+}
+
+.convertions-val h1 {
+	display: inline-block;
+    margin-left: 20%
 }
